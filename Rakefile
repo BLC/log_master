@@ -1,17 +1,23 @@
 require 'rubygems'
 require 'rake'
 
+$LOAD_PATH.unshift(File.dirname(__FILE__) + "/lib")
+require 'log_master/rake/log_task'
+
+Dir['tasks/*.rake'].each { |rake| load rake }
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "log_master"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Creates and emails a simple report for a set of log (or text) files. Useful for aggretating small log files.}
+    gem.description = %Q{Creates and emails a simple report for a set of log (or text) files. Useful for aggretating small log files.}
     gem.email = "zbelzer@gmail.com"
-    gem.homepage = "http://github.com/zbelzer/log_master"
+    gem.homepage = "http://github.com/moneypools/log_master"
     gem.authors = ["Zachary Belzer"]
+    gem.add_dependency "actionmailer"
     gem.add_development_dependency "rspec"
-    gem.add_development_dependency "cucumber"
+    gem.add_development_dependency "email_spec", " >= 0.3.5"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

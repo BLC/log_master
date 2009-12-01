@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @subject %></title>
+    <style type="text/css">
+      .pre {
+        white-space: pre;
+        font-family: monospace;
+        font-size: small;
+      }
+
+      .info {
+        color: black;
+      }
+
+      .fatal {
+        color: red;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .warn {
+        color: blue;
+      }
+
+      .log {
+        font-family: monospace;
+        font-weight: bold;
+        margin-bottom: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>
+      <%= @title %>
+    </h2>
+    <p>
+      <% @reports.each do |name, count| %>
+        <strong class="<%= name %>"><%= name.to_s.titleize %>: </strong><%= count %><br />
+      <% end %>
+    </p>
+
+    <hr />
+
+    <% @logs.each do |log| -%>
+      <div class="log"><%= log.file_name %></div>
+
+      <div class="pre">
+        <% log.body.each do |line| -%>
+          <span class="<%= stylize_output(line) %>"><%= line.chomp -%></span>
+        <% end -%>
+      </div>
+
+      <hr />
+    <% end -%>
+  </body>
+</html>
