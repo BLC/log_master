@@ -23,5 +23,26 @@ module LogMaster
         log_master.reports[:error].should == 2
       end
     end
+    
+    
+    describe "successful?" do
+      it "should be true when no aggregate count for failure_conditions" do
+        log_master = Director.new(log_file_path('log_without_errors.log'))
+        log_master.run
+        log_master.should be_successful
+      end
+      
+      it "should be false when aggregate count for failure_conditions > 0" do
+        log_master = Director.new(log_file_path('log_with_errors.log'))
+        log_master.run
+        log_master.should_not be_successful
+      end
+      
+      it "should be false when given missing file" do
+        log_master = Director.new(log_file_path('nosuchfile.log'))
+        log_master.run
+        log_master.should_not be_successful
+      end
+    end
   end
 end

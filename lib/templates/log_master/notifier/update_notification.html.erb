@@ -33,9 +33,11 @@
     </style>
   </head>
   <body>
-    <h2>
+    <h3>
       <%= @title %>
-    </h2>
+    </h3>
+    
+    <h4>Summary</h4>
     <p>
       <% @reports.each do |name, count| %>
         <strong class="<%= name %>"><%= name.to_s.titleize %>: </strong><%= count %><br />
@@ -45,11 +47,11 @@
     <hr />
 
     <% @logs.each do |log| -%>
-      <div class="log"><%= log.file_name %></div>
+      <p class="log"><%= log.file_name %></p>
 
       <div class="pre">
         <% log.body.each do |line| -%>
-          <span class="<%= stylize_output(line) %>"><%= line.chomp -%></span>
+          <div class="<%= stylize_output(line) %>"><%= line.chomp -%></div>
         <% end -%>
       </div>
 

@@ -4,7 +4,7 @@ module LogMaster
   class Configuration
     include Singleton
     
-    attr_accessor :title, :reporting
+    attr_accessor :title, :reporting, :failure_conditions
     
     # These are options that directly affect the email
     attr_accessor :recipients, :from, :reply_to
@@ -18,6 +18,7 @@ module LogMaster
     def reset
       @title = "No Title"
       @reporting = {}
+      @failure_conditions = []
       
       @@configured = false
     end

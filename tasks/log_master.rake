@@ -1,6 +1,6 @@
 namespace :log_master do
   task :configure do
-    require 'action_mailer'
+    require 'actionmailer'
     ActionMailer::Base.delivery_method = :sendmail
     
     LogMaster::Configuration.configure do |config|

@@ -19,6 +19,7 @@ ActionMailer::Base.delivery_method = :test
 LogMaster::Configuration.configure do |config|
   config.title = "Testing LogMaster"
   config.reporting = {:warn => /WARN/, :error => /ERROR/, :fatal => /FATAL/}
+  config.failure_conditions = [:error, :fatal]
   config.recipients = {:success => "success@example.com", :failure => "failure@example.com"}
 end
 
