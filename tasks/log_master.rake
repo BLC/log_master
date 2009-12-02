@@ -1,6 +1,6 @@
 namespace :log_master do
   task :configure do
-    require 'actionmailer'
+    require 'action_mailer'
     ActionMailer::Base.delivery_method = :sendmail
     
     LogMaster::Configuration.configure do |config|
@@ -13,6 +13,6 @@ namespace :log_master do
   
   desc "Runs log master on specified log file"
   LogMaster::Rake::LogTask.define_task "test" => :configure do |t|
-    t.log_file = "spec/fixtures/log_with_errors.log"
+    t.log_pattern = ENV['log_pattern'] || "spec/fixtures/log_with_errors.log"
   end
 end

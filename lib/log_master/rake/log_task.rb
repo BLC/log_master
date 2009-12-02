@@ -3,7 +3,7 @@ require 'log_master'
 module LogMaster
   module Rake    
     class LogTask < ::Rake::Task
-      attr_accessor :log_file
+      attr_accessor :log_pattern
       
       protected
       def execute(*args)
@@ -12,7 +12,8 @@ module LogMaster
       end
     
       def run_log_master
-        LogMaster::Director.new(log_file).run
+        files = Dir[log_pattern]
+        LogMaster::Director.new(files).run
       end
     end
   end
