@@ -1,8 +1,11 @@
-<!DOCTYPE html>
 <html>
   <head>
     <title><%= @subject %></title>
     <style type="text/css">
+      h3 {
+        text-align: center;
+      }
+
       .pre {
         white-space: pre;
         font-family: monospace;
@@ -37,10 +40,10 @@
       <%= @title %>
     </h3>
     
-    <h4>Summary</h4>
+    <h4>Overall Summary</h4>
     <p>
       <% @reports.each do |name, count| %>
-        <strong class="<%= name %>"><%= name.to_s.titleize %>: </strong><%= count %><br />
+        <strong class="<%= name %>"><%= name.to_s.titleize.pluralize %>: </strong><%= count %><br />
       <% end %>
     </p>
 
@@ -51,7 +54,7 @@
 
       <div class="pre">
         <% log.body.each do |line| -%>
-          <div class="<%= stylize_output(line) %>"><%= line.chomp -%></div>
+          <span class="<%= stylize_output(line) %>"><%= line.chomp -%></span><br />
         <% end -%>
       </div>
 
