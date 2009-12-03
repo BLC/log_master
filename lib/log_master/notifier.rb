@@ -2,6 +2,8 @@ module LogMaster
   class Notifier < ActionMailer::Base
     helper_method :stylize_output
     
+    self.template_root = File.expand_path(File.dirname(__FILE__) + "/../../lib/templates")
+    
     def update_notification(status, reports, logs)
       @status = status
       @configuration = Configuration.instance
@@ -13,10 +15,6 @@ module LogMaster
       content_type  "text/html"
       sent_on       Time.now
       body          :title => @configuration.title, :logs => logs, :reports => reports
-    end
-
-    def template_path
-      File.expand_path(File.dirname(__FILE__) + "/../../templates/log_master/notifier/update_notification.html.erb")
     end
     
     def create_subject

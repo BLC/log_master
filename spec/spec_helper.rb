@@ -5,7 +5,7 @@ require 'rubygems'
 # Explicitly required so we can set class vars before Notifier gets loaded
 require 'action_mailer'
 
-ActionMailer::Base.template_root = File.dirname(__FILE__) + "/../lib/templates"
+# ActionMailer::Base.template_root = File.dirname(__FILE__) + "/../lib/templates"
 ActionMailer::Base.delivery_method = :test
 # ActionMailer::Base.logger = Logger.new('test.log')
 
