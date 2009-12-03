@@ -14,7 +14,10 @@ module LogMaster
       sent_on       Time.now
       body          :title => @configuration.title, :logs => logs, :reports => reports
     end
-    
+
+    def template_path
+      File.expand_path(File.dirname(__FILE__) + "/../../templates/log_master/notifier/update_notification.html.erb")
+    end
     
     def create_subject
       @configuration.title + (@status ? " SUCCESSFUL" : " FAILED")

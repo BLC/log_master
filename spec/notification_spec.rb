@@ -20,9 +20,9 @@ module LogMaster
       
       it "should contain the aggregate report" do
         email = Notifier.deliver_update_notification(true, {:error => 1, :warn => 2, :fatal => 0}, [])
-        email.should have_body_text(/Error:.*1/)
-        email.should have_body_text(/Warn:.*2/)
-        email.should have_body_text(/Fatal:.*0/)
+        email.should have_body_text(/Errors:.*1/)
+        email.should have_body_text(/Warns:.*2/)
+        email.should have_body_text(/Fatals:.*0/)
       end
       
       it "should contain each of the provided logfiles" do

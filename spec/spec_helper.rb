@@ -1,6 +1,14 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'rubygems'
+
+# Explicitly required so we can set class vars before Notifier gets loaded
+require 'action_mailer'
+
+ActionMailer::Base.template_root = File.dirname(__FILE__) + "/../lib/templates"
+ActionMailer::Base.delivery_method = :test
+# ActionMailer::Base.logger = Logger.new('test.log')
+
 require 'log_master'
 require 'spec'
 require 'spec/autorun'
@@ -12,9 +20,6 @@ require "email_spec/matchers"
 require File.dirname(__FILE__) + '/../lib/log_master'
 
 FIXTURES_DIR = File.dirname(__FILE__) + "/fixtures"
-
-ActionMailer::Base.delivery_method = :test
-# ActionMailer::Base.logger = Logger.new('test.log')
 
 LogMaster::Configuration.configure do |config|
   config.title = "Testing LogMaster"
