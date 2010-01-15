@@ -5,13 +5,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{log_master}
-  s.version = "0.1.4"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Zachary Belzer"]
-  s.date = %q{2009-12-03}
+  s.date = %q{2010-01-15}
+  s.default_executable = %q{log_master}
   s.description = %q{Creates and emails a simple report for a set of log (or text) files. Useful for aggretating small log files.}
   s.email = %q{zbelzer@gmail.com}
+  s.executables = ["log_master"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -23,6 +25,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "bin/log_master",
      "features/log_master.feature",
      "features/step_definitions/email_steps.rb",
      "features/step_definitions/log_master_steps.rb",
@@ -33,7 +36,6 @@ Gem::Specification.new do |s|
      "lib/log_master/director.rb",
      "lib/log_master/log_file.rb",
      "lib/log_master/notifier.rb",
-     "lib/log_master/rake/log_task.rb",
      "lib/templates/log_master/notifier/update_notification.html.erb",
      "log_master.gemspec",
      "spec/configuration_spec.rb",
@@ -43,8 +45,7 @@ Gem::Specification.new do |s|
      "spec/fixtures/log_without_errors.log",
      "spec/log_file_spec.rb",
      "spec/notification_spec.rb",
-     "spec/spec_helper.rb",
-     "tasks/log_master.rake"
+     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/moneypools/log_master}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -64,16 +65,16 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<actionmailer>, [">= 0"])
+      s.add_runtime_dependency(%q<actionmailer>, [">= 2.2.2"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<email_spec>, [">= 0.3.5"])
     else
-      s.add_dependency(%q<actionmailer>, [">= 0"])
+      s.add_dependency(%q<actionmailer>, [">= 2.2.2"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<email_spec>, [">= 0.3.5"])
     end
   else
-    s.add_dependency(%q<actionmailer>, [">= 0"])
+    s.add_dependency(%q<actionmailer>, [">= 2.2.2"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<email_spec>, [">= 0.3.5"])
   end

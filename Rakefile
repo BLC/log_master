@@ -15,7 +15,7 @@ begin
     gem.email = "zbelzer@gmail.com"
     gem.homepage = "http://github.com/moneypools/log_master"
     gem.authors = ["Zachary Belzer"]
-    gem.add_dependency "actionmailer"
+    gem.add_dependency "actionmailer", ">= 2.2.2"
     gem.add_development_dependency "rspec"
     gem.add_development_dependency "email_spec", " >= 0.3.5"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings

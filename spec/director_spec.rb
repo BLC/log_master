@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 module LogMaster
   describe "Director" do
     before do
+      Configuration.stub!(:configured?).and_return(true)
       @files = %w(log_without_errors.log log_with_errors.log).map {|f| log_file_path(f) }
     end
     
@@ -11,9 +12,8 @@ module LogMaster
     end
     
     it "should raise error if not configured" do
-      Configuration.instance.reset_configured_status!
+      Configuration.stub!(:configured?).and_return(false)
       lambda {Director.new(@files)}.should raise_error
-      Configuration.configure {|c|} # Reset configured state
     end
   
     describe "aggregate" do
@@ -23,7 +23,6 @@ module LogMaster
         log_master.reports[:error].should == 2
       end
     end
-    
     
     describe "successful?" do
       it "should be true when no aggregate count for failure_conditions" do

@@ -1,6 +1,45 @@
-= log_master
+== log_master
 
-Description goes here.
+A simple library for mailing log (or whatever) files back to you!
+
+This was written as a failsafe for cron tasks who's output we wanted conditionally sent to
+one email address or another. The idea is that under normal conditions you don't want to spam
+your inbox with emails stating 'everything is fine.' Instead you can have it go directly into
+archive unless it has some idea that something is going wrong.
+
+== Installation
+  $ sudo gem install log_master
+
+== Instructions
+  $ log_master -p [--log-pattern] PATTERN [-c | --config PATH]
+
+Where PATTERN is a glob representing the files you would like to email and PATH is the path to
+a configuration file (defaults to config/log_master.rb)
+
+== Configuration
+
+You should put something like the following in config/log_master.rb
+
+  LogMaster::Configuration.configure do |config|  
+    config.title = "Cron Update Notice"
+    config.reporting = {:warn => /error/i, :error => /aborted/i}
+    config.failure_conditions = [:error]
+
+    config.recipients = {:success => 'success@example.com', :failure => 'failure@example.com' }
+
+    config.reply_to = "no-reply@likeassets.com"
+    config.from = "mail@likeassets.com"
+  end
+
+I only provided direct ActionMailer setters for from and reply_to as the intention is to let LogMaster
+determine via failure_conditions and its recipients attribute where the email should go. Feel free to fork
+and change this if it leaves something to be desired.
+
+== Customization
+
+The 'reporting' attribute can take a completely custom hash of 'name' => 'regexp' so you can define your
+own warning, failure, info or debug conditions. Only if it contains anything specified in 'failure_conditions'
+will it consider it a failure.
 
 == Note on Patches/Pull Requests
  

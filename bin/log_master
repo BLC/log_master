@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+require 'log_master'
+
+options = Hash.new
+log_pattern = nil
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: log_master [options]"
+  
+  opts.on('-p', '--log-pattern PATTERN', "A globbing pattern designating files to email") do |pattern|
+    log_pattern = pattern
+  end
+  
+  opts.on('-c', '--config [FILE]', 'A configuration file. Default: config/log_master.rb') do |file|
+    options[:file] = file if file
+  end
+end.parse!
+
+if log_pattern.nil? || log_pattern == ""
+  $stderr.puts "You must supply a log-pattern. See --help"
+  exit(1)
+end
+
+if files = Dir[log_pattern] and files.empty?
+  $stderr.puts "No files were found matching pattern '#{log_pattern}'"
+  exit(1)
+else
+  LogMaster::Director.execute(files, options)
+end

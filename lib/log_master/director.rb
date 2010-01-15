@@ -5,17 +5,36 @@ module LogMaster
   
     attr_accessor :reports, :logs
   
-    def initialize(files)
-      raise "LogMaster has not yet been configured" unless Configuration.configured?
-      @configuration = Configuration.instance
+    def self.execute(files, options={})
+      new(files, options).run
+    end
+  
+    def initialize(files, options={})
+      @options = options
+      @options[:file]       ||= 'config/log_master.rb'
+      
       @reports = {}
       
+      load_configuration
       create_log_files(files)
     end
     
     def run
       aggregate!
       send_email
+    end
+    
+    def load_configuration
+      require @options[:file] if File.exists?(@options[:file])
+    
+      # config = File.read(@options[:file])
+      # eval(config)
+      
+      if Configuration.configured?
+        @configuration = Configuration.instance
+      else
+        raise "[fail] LogMaster is not configured"
+      end
     end
   
     def aggregate!
